@@ -1,0 +1,15 @@
+.container {
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+}
+
+.calculatorBody {
+    width: 33vw;
+    background-color: blue;
+}
+
+.calcDisplay {
+    width: 32.5vw;
+}
