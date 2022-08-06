@@ -6,21 +6,26 @@ const calculator = {
 }
 
 function updateDisplay() {
-    const { displayValue } = calculator;
     const display = document.querySelector(".calcDisplay");
-    display.value = displayValue;
+    display.value = calculator.displayValue;
 }
 
-const keys = addEventListener("click", (e) => {
+function keyPress(key) {
+    let { displayValue } = calculator;
+    if (displayValue === "0") {
+        calculator.displayValue = key;
+    } else {
+        calculator.displayValue = displayValue + key;
+    }
+}
+
+const keys = document.querySelector(".calcBodyKeys");
+keys.addEventListener("click", (e) => {
     const { target } = e;
-    if (!target.tagName === "BUTTON") {
+    if (!target.matches("BUTTON")) {
         return;
     }
-    if (target.classList.contains("numberKey")) {
-        console.log("number", target.value)
-        return;
-    }
-    if (target.classList.contains("operatorKey")) {
+    if (target.classList.contains("operatorKeys")) {
         console.log("operator", target.value)
         return;
     }
@@ -36,5 +41,6 @@ const keys = addEventListener("click", (e) => {
         console.log("equals", target.value)
         return;
     }
-    console.dir(target);
-})
+    keyPress(target.value);
+    updateDisplay();
+});
