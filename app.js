@@ -60,6 +60,17 @@ function keyDecimal(key) {
     }
 }
 
+function totalOut() {
+    const { operator, firstOperand, displayValue } = calculator;
+    const curValue = parseFloat(displayValue);
+    if (operator) {
+        calculator.displayValue = calculate(firstOperand, curValue, operator);
+        calculator.waitingSecondOperand = false;
+        calculator.firstOperand = null;
+        calculator.operator = null;
+    }
+}
+
 const keys = document.querySelector(".calcBodyKeys");
 keys.addEventListener("click", (e) => {
     const { target } = e;
@@ -81,7 +92,8 @@ keys.addEventListener("click", (e) => {
         return;
     }
     if (target.classList.contains("equalKey")) {
-        console.log("equals", target.value);
+        totalOut();
+        updateDisplay()
         return;
     }
     keyPress(target.value);
