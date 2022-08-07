@@ -29,7 +29,7 @@ function keyOperatorPress(key) {
     if (firstOperand === null && !isNaN(curValue)) {
         calculator.firstOperand = curValue;
     } else if (operator) {
-        const total = calculate(firstOperand, displayValue, operator);
+        const total = calculate(firstOperand, curValue, operator);
         calculator.displayValue = String(total);
         calculator.firstOperand = total;
     }
@@ -54,6 +54,12 @@ function calculate(first, second, operator) {
     }
 }
 
+function keyDecimal(key) {
+    if (!calculator.displayValue.includes(".")) {
+        calculator.displayValue = calculator.displayValue + key;
+    }
+}
+
 const keys = document.querySelector(".calcBodyKeys");
 keys.addEventListener("click", (e) => {
     const { target } = e;
@@ -62,10 +68,11 @@ keys.addEventListener("click", (e) => {
     }
     if (target.classList.contains("operatorKeys")) {
         keyOperatorPress(target.value);
-        console.log("operator", target.value);
         return;
     }
     if (target.classList.contains("decimalKey")) {
+        keyDecimal(target.value);
+        updateDisplay();
         console.log("decimal", target.value);
         return;
     }
