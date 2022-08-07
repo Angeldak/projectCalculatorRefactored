@@ -1,3 +1,5 @@
+//Need to fix decimal issue when trying to do a decimal immediately after operator
+
 const calculator = {
     displayValue: "0",
     operator: null,
@@ -71,6 +73,14 @@ function totalOut() {
     }
 }
 
+function clearOut() {
+    calculator.displayValue = "0";
+    calculator.waitingSecondOperand = false;
+    calculator.firstOperand = null;
+    calculator.operator = null;
+    console.log(calculator);
+}
+
 const keys = document.querySelector(".calcBodyKeys");
 keys.addEventListener("click", (e) => {
     const { target } = e;
@@ -88,7 +98,8 @@ keys.addEventListener("click", (e) => {
         return;
     }
     if (target.classList.contains("clearKey")) {
-        console.log("all clear", target.value);
+        clearOut();
+        updateDisplay();
         return;
     }
     if (target.classList.contains("equalKey")) {
