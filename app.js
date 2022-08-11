@@ -10,6 +10,7 @@ const calculator = {
 function updateDisplay() {
     const display = document.querySelector(".calcDisplay");
     display.value = calculator.displayValue;
+    console.log(calculator.displayValue.length)
 }
 
 function keyPress(key) {

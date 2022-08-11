@@ -12,4 +12,17 @@
 
 .calcDisplay {
     width: 32.5vw;
+    height: 5REM;
+    font-size: 5REM;
+}
+
+.gridLayout {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    grid-auto-rows: minmax(5REM, auto);
+}
+
+.twoGrids {
+    grid-column: 1/3;
 }
