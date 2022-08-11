@@ -1,5 +1,3 @@
-//Need to fix decimal issue when trying to do a decimal immediately after operator
-
 const calculator = {
     displayValue: "0",
     operator: null,
@@ -7,10 +5,20 @@ const calculator = {
     waitingSecondOperand: false
 }
 
+//NEED TO ADD functionality for trueValue to show on HTML with full digit display
 function updateDisplay() {
     const display = document.querySelector(".calcDisplay");
+    const excessWrapper = document.querySelector("#excessWrapper");
+    const trueValue = document.querySelector("#trueValue");
     display.value = calculator.displayValue;
-    console.log(calculator.displayValue.length)
+
+    if (calculator.displayValue.length > 10) {
+        excessWrapper.classList.remove("excessWrapperOff");
+        excessWrapper.classList.add("excessWrapperOn");
+    } else {
+        excessWrapper.classList.add("excessWrapperOff");
+        excessWrapper.classList.remove("excessWrapperOn");
+    }
 }
 
 function keyPress(key) {
@@ -23,7 +31,6 @@ function keyPress(key) {
     } else {
         calculator.displayValue = displayValue + key;
     }
-    console.log(calculator);
 }
 
 function keyOperatorPress(key) {
@@ -79,12 +86,19 @@ function clearOut() {
     calculator.waitingSecondOperand = false;
     calculator.firstOperand = null;
     calculator.operator = null;
-    console.log(calculator);
 }
 
 function percentageNum() {
     if (!isNaN(calculator.displayValue)) {
-        calculator.displayValue = calculator.displayValue * .01;
+        let newNum = parseFloat(calculator.displayValue * .01);
+        calculator.displayValue = newNum.toString();
+    }
+}
+
+function negPos() {
+    if (!isNaN(calculator.displayValue)) {
+        let newNum = parseFloat(calculator.displayValue * -1);
+        calculator.displayValue = newNum.toString();
     }
 }
 
@@ -116,6 +130,11 @@ keys.addEventListener("click", (e) => {
     }
     if (target.classList.contains("percentKey")) {
         percentageNum();
+        updateDisplay();
+        return;
+    }
+    if (target.classList.contains("negPosKey")) {
+        negPos();
         updateDisplay();
         return;
     }
