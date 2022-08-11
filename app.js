@@ -82,6 +82,12 @@ function clearOut() {
     console.log(calculator);
 }
 
+function percentageNum() {
+    if (!isNaN(calculator.displayValue)) {
+        calculator.displayValue = calculator.displayValue * .01;
+    }
+}
+
 const keys = document.querySelector(".calcBodyKeys");
 keys.addEventListener("click", (e) => {
     const { target } = e;
@@ -106,6 +112,11 @@ keys.addEventListener("click", (e) => {
     if (target.classList.contains("equalKey")) {
         totalOut();
         updateDisplay()
+        return;
+    }
+    if (target.classList.contains("percentKey")) {
+        percentageNum();
+        updateDisplay();
         return;
     }
     keyPress(target.value);
